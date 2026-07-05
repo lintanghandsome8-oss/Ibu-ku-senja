@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surat untuk Ibu — Lintang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #1a1210;
+            background-image:
+                radial-gradient(ellipse at 20% 50%, #2d1f1a 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, #1f1411 0%, transparent 60%),
+                linear-gradient(180deg, #0d0807 0%, #1e1310 100%);
+            padding: 24px;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        /* === KERTAS SURAT === */
+        .letter {
+            max-width: 780px;
+            width: 100%;
+            background: linear-gradient(165deg, #fbf3e3 0%, #f5e8d4 40%, #efe0c9 100%);
+            border-radius: 8px 8px 12px 12px;
+            padding: 48px 52px 32px;
+            box-shadow:
+                0 40px 80px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(180, 140, 100, 0.3),
+                inset 0 0 60px rgba(180, 140, 100, 0.05);
+            position: relative;
+            transition: 0.3s;
+        }
+
+        /* efek kertas tua */
+        .letter::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 28px,
+                    rgba(180, 140, 100, 0.04) 28px,
+                    rgba(180, 140, 100, 0.04) 29px);
+            pointer-events: none;
+            border-radius: 8px;
+        }
+
+        /* garis lipatan kiri */
+        .letter::after {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 20px;
+            bottom: 20px;
+            width: 1px;
+            background: rgba(160, 120, 80, 0.08);
+            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.02);
+        }
+
+        /* === KEPALA SURAT === */
+        .letter-header {
+            text-align: center;
+            margin-bottom: 28px;
+            border-bottom: 2px solid rgba(160, 120, 80, 0.15);
+            padding-bottom: 18px;
+        }
+
+        .letter-header h1 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #4a3228;
+            letter-spacing: 8px;
+            font-style: italic;
+            text-shadow: 0 1px 2px rgba(255, 215, 180, 0.3);
+        }
+
+        .letter-header .ornament {
+            color: #b28b6f;
+            font-size: 1.2rem;
+            letter-spacing: 12px;
+            margin-top: 6px;
+            opacity: 0.5;
+        }
+
+        .letter-header .date {
+            font-size: 0.85rem;
+            color: #8a7563;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* === AREA TEKS (seperti diketik) === */
+        .typewriter-area {
+            min-height: 380px;
+            padding: 8px 4px;
+            position: relative;
+        }
+
+        .typewriter-text {
+            font-size: 1.2rem;
+            line-height: 2.2;
+            color: #2c1f17;
+            font-family: 'Georgia', 'Palatino', serif;
+            letter-spacing: 0.03em;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* kursor berkedip */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.4rem;
+            background: #7a5a44;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blink 0.9s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* === KUPU-KUPU (hiasan) === */
+        .butterflies {
+            position: absolute;
+            top: -18px;
+            right: -10px;
+            font-size: 32px;
+            opacity: 0.3;
+            pointer-events: none;
+            animation: floatButterfly 14s infinite alternate ease-in-out;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+        }
+
+        .butterflies span {
+            display: inline-block;
+            animation: wingFlap 0.8s infinite alternate ease-in-out;
+        }
+
+        .butterflies span:nth-child(2) {
+            animation-delay: -0.3s;
+            font-size: 26px;
+            margin-left: -6px;
+        }
+        .butterflies span:nth-child(3) {
+            animation-delay: -0.6s;
+            font-size: 22px;
+            margin-left: -8px;
+        }
+
+        @keyframes floatButterfly {
+            0% {
+                transform: translate(0, 0) rotate(-5deg);
+            }
+            50% {
+                transform: translate(-20px, 15px) rotate(8deg);
+            }
+            100% {
+                transform: translate(10px, -10px) rotate(-3deg);
+            }
+        }
+
+        @keyframes wingFlap {
+            0% {
+                transform: scaleX(0.4) rotate(-8deg);
+            }
+            100% {
+                transform: scaleX(1.6) rotate(8deg);
+            }
+        }
+
+        /* === TANDA TANGAN === */
+        .signature {
+            margin-top: 28px;
+            text-align: right;
+            padding-top: 18px;
+            border-top: 1px solid rgba(160, 120, 80, 0.12);
+        }
+
+        .signature .line1 {
+            font-style: italic;
+            color: #5a4034;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            opacity: 0.6;
+        }
+
+        .signature .line2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #3d2a1f;
+            letter-spacing: 3px;
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        .signature .line2 .heart {
+            color: #b34a4a;
+            font-size: 1.4rem;
+            margin-right: 4px;
+        }
+
+        /* === PENULIS (di bawah tanda tangan) === */
+        .writer {
+            margin-top: 12px;
+            text-align: right;
+            font-size: 0.85rem;
+            color: #8a7563;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            font-style: italic;
+            padding-top: 8px;
+            border-top: 1px dashed rgba(160, 120, 80, 0.08);
+        }
+
+        .writer strong {
+            font-weight: 600;
+            color: #5a4034;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        /* === RESPONSIF === */
+        @media (max-width: 600px) {
+            .letter {
+                padding: 30px 24px 24px;
+            }
+            .letter-header h1 {
+                font-size: 1.3rem;
+                letter-spacing: 4px;
+            }
+            .typewriter-text {
+                font-size: 1rem;
+                line-height: 2;
+            }
+            .cursor {
+                height: 1.1rem;
+            }
+            .butterflies {
+                font-size: 24px;
+                top: -12px;
+                right: 0px;
+            }
+            .signature .line2 {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .letter {
+                padding: 22px 16px 18px;
+            }
+            .typewriter-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="letter">
+
+        <!-- Kupu-kupu hiasan -->
+        <div class="butterflies">
+            <span>🦋</span>
+            <span>🦋</span>
+            <span>🦋</span>
+        </div>
+
+        <!-- Kepala Surat -->
+        <div class="letter-header">
+            <h1>Untuk Ibu</h1>
+            <div class="ornament">✿ ✿ ✿</div>
+            <div class="date">— di suatu senja yang rindu —</div>
+        </div>
+
+        <!-- Area Teks (efek diketik dari atas ke bawah) -->
+        <div class="typewriter-area">
+            <div class="typewriter-text" id="poemDisplay">
+                <span id="cursorSpan" class="cursor"></span>
+            </div>
+        </div>
+
+        <!-- Tanda Tangan -->
+        <div class="signature">
+            <div class="line1">— dengan segala cinta —</div>
+            <div class="line2">
+                <span class="heart">♥</span> dari anakmu,
+            </div>
+        </div>
+
+        <!-- PENULIS: dari anak mu Lintang -->
+        <div class="writer">
+            <strong>Penulis : dari anak mu Lintang</strong>
+        </div>
+
+    </div>
+
+    <script>
+        // === PUISI (akan diketik dari atas ke bawah) ===
+        const poemLines = [
+            "Ibu,",
+            "",
+            "Pelukmu adalah senja yang tak pernah padam.",
+            "Senyummu menabur bintang di dadaku.",
+            "Setiap doamu adalah angin yang membelai,",
+            "dan di setiap langkahku, kau selalu menjadi tanah.",
+            "",
+            "Seperti kupu-kupu yang tak pernah lelah",
+            "menari di antara rindu,",
+            "kau selalu ada — dalam hening, dalam doa.",
+            "",
+            "Ibu,",
+            "kau pelangi di sela hujan,",
+            "dan aku hanya anak yang ingin pulang.",
+            "",
+            "♡"
+        ];
+
+        // Gabungkan jadi satu string dengan newline
+        const fullText = poemLines.join('\n');
+
+        const displayElement = document.getElementById('poemDisplay');
+        let charIndex = 0;
+        let typingSpeed = 45; // ms per karakter
+
+        function typeWriter() {
+            if (charIndex < fullText.length) {
+                displayElement.innerHTML = fullText.substring(0, charIndex + 1) +
+                    '<span class="cursor"></span>';
+                charIndex++;
+                setTimeout(typeWriter, typingSpeed);
+            } else {
+                // Selesai: biarkan cursor tetap berkedip
+                displayElement.innerHTML = fullText + '<span class="cursor"></span>';
+            }
+        }
+
+        // Mulai efek mengetik setelah halaman dimuat
+        window.addEventListener('load', function() {
+            displayElement.innerHTML = '<span class="cursor"></span>';
+            setTimeout(() => {
+                charIndex = 0;
+                typeWriter();
+            }, 600);
+        });
+    </script>
+
+</body>
+</html>
